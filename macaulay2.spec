@@ -1,5 +1,3 @@
-%define m2docdir	%{_docdir}/Macaulay2
-
 Name:		macaulay2
 Version:	1.2
 Release:	%mkrel 1
