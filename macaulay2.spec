@@ -25,7 +25,7 @@ BuildRequires:	liblapack-devel
 BuildRequires:	mpfr-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	ntl-devel
-BuildRequires:	pari libpari-devel
+BuildRequires:	libpari-devel
 BuildRequires:	readline-devel
 BuildRequires:	singular-devel
 
@@ -64,6 +64,8 @@ This package provides Macaulay 2 documentation.
 
 %prep
 %setup -q -n Macaulay2-%{version}
+
+%patch0 -p1
 
 %build
 # need install-info in $PATH
