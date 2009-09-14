@@ -69,7 +69,7 @@ autoreconf -ifs
 
 # avoid build failure due to some read only files
 chmod -R u+w .
-%make
+make
 
 %install
 # need install-info in $PATH
