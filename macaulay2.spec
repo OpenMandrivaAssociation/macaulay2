@@ -12,6 +12,7 @@ Source3:	http://www.math.uiuc.edu/Macaulay2/Extra/frobby_vmike3.tar.gz
 BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
 
 # etags
+BuildRequires:	bison flex
 BuildRequires:	emacs-common
 BuildRequires:	gcc-gfortran
 BuildRequires:	gmp-devel
@@ -57,8 +58,6 @@ This package provides Macaulay 2 documentation.
 
 %prep
 %setup -q -n Macaulay2-%{version}
-
-%patch0 -p1
 
 %build
 # need install-info in $PATH
