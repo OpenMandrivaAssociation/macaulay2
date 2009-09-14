@@ -25,7 +25,7 @@ BuildRequires:	liblapack-devel
 BuildRequires:	mpfr-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	ntl-devel
-BuildRequires:	libpari-devel
+BuildRequires:	pari libpari-devel
 BuildRequires:	readline-devel
 BuildRequires:	singular-devel
 
