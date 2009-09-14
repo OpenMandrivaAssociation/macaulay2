@@ -29,6 +29,12 @@ BuildRequires:	libpari-devel
 BuildRequires:	readline-devel
 BuildRequires:	singular-devel
 
+# FIXME failures on doc tests, due to long _ntl_IsFinite(double *p) failing,
+# and possibly others, also besides hard to tell it to use libdir as
+# /usr/lib64 (because it wants the string ${prefix} before it), still
+# installs files in /usr/lib
+ExcludeArch:	x86_64
+
 # Mandriva version of pari is already linked to gmp
 Patch0:		Macaulay2-1.2-pari-dynamic.patch
 
