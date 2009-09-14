@@ -20,6 +20,7 @@ BuildRequires:	info-install
 BuildRequires:	libatlas-devel
 BuildRequires:	libgc-devel
 BuildRequires:	libgdbm-devel
+BuildRequires:	liblapack-devel
 BuildRequires:	mpfr-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	ntl-devel
