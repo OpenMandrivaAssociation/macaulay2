@@ -1,6 +1,6 @@
 Name:		macaulay2
 Version:	1.2
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		Sciences/Mathematics
 License:	GPL
 Summary:	A software system for research in algebraic geometry 
@@ -29,14 +29,9 @@ BuildRequires:	libpari-devel
 BuildRequires:	readline-devel
 BuildRequires:	singular-devel
 
-# FIXME failures on doc tests, due to long _ntl_IsFinite(double *p) failing,
-# and possibly others, also besides hard to tell it to use libdir as
-# /usr/lib64 (because it wants the string ${prefix} before it), still
-# installs files in /usr/lib
-ExcludeArch:	x86_64
-
 # Mandriva version of pari is already linked to gmp
 Patch0:		Macaulay2-1.2-pari-dynamic.patch
+Patch1:		Macaulay2-1.2-ntl-5.5.2-x86_64.patch
 
 %description
 Macaulay 2 is a software system devoted to supporting research in algebraic
@@ -66,6 +61,9 @@ This package provides Macaulay 2 documentation.
 %setup -q -n Macaulay2-%{version}
 
 %patch0 -p1
+%ifarch x86_64
+%patch1 -p1
+%endif
 
 %build
 # need install-info in $PATH
@@ -73,7 +71,9 @@ export PATH=/sbin:$PATH
 mkdir -p BUILD/tarfiles
 cp %{SOURCE1} %{SOURCE2} %{SOURCE3} BUILD/tarfiles
 autoreconf -ifs
-./configure --prefix=%{_prefix} --disable-download
+./configure --prefix=%{_prefix}		\
+	--libdir="\${prefix}/%{_lib}"	\
+	--disable-download
 
 # avoid build failure due to some read only files
 chmod -R u+w .
