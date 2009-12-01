@@ -19,6 +19,7 @@ BuildRequires:	cddlib-devel
 BuildRequires:	emacs-common
 BuildRequires:	gcc-gfortran
 BuildRequires:	gfan
+BuildRequires:	glpk-devel
 BuildRequires:	gmp-devel
 BuildRequires:	gmpxx-devel
 BuildRequires:	info-install
