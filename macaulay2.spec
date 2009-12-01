@@ -27,6 +27,7 @@ BuildRequires:	libatlas-devel
 BuildRequires:	libgc-devel
 BuildRequires:	libgdbm-devel
 BuildRequires:	liblapack-devel
+BuildRequires:	libxml2-devel
 BuildRequires:	mpfr-devel
 BuildRequires:	ncurses-devel
 BuildRequires:	ntl-devel
