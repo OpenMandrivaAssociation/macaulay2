@@ -1,6 +1,6 @@
 Name:		macaulay2
 Version:	1.3.1
-Release:	%mkrel 1
+Release:	%mkrel 2
 Group:		Sciences/Mathematics
 License:	GPL
 Summary:	A software system for research in algebraic geometry 
