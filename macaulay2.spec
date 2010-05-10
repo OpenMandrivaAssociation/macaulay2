@@ -1,6 +1,6 @@
 Name:		macaulay2
 Version:	1.3.1
-Release:	%mkrel 2
+Release:	%mkrel 3
 Group:		Sciences/Mathematics
 License:	GPL
 Summary:	A software system for research in algebraic geometry 
@@ -22,6 +22,7 @@ BuildRequires:	gfan
 BuildRequires:	glpk-devel
 BuildRequires:	gmp-devel
 BuildRequires:	gmpxx-devel
+BuildRequires:	help2man
 BuildRequires:	info-install
 BuildRequires:	libatlas-devel
 BuildRequires:	libgc-devel
@@ -34,6 +35,7 @@ BuildRequires:	ntl-devel
 BuildRequires:	libpari-devel
 BuildRequires:	readline-devel
 BuildRequires:	singular-devel
+BuildRequires:	texinfo
 
 Requires:	cdd
 Requires:	gfan
