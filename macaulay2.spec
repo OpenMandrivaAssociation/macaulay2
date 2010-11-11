@@ -55,7 +55,11 @@ Patch2:		Macaulay2-1.4-gfan.patch
 
 # use gmp
 Patch3:		Macaulay2-1.4-mpir.patch
+
+# use system libgc
 Patch4:		Macaulay2-1.4-gc.patch
+
+Patch5:		Macaulay2-1.4-pari.patch
 
 %description
 Macaulay 2 is a software system devoted to supporting research in algebraic
@@ -91,6 +95,7 @@ This package provides Macaulay 2 documentation.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 # need install-info in $PATH
