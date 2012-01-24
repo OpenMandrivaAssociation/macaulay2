@@ -30,6 +30,7 @@ BuildRequires:	libatlas-devel
 BuildRequires:	libatomic_ops-devel
 BuildRequires:	libgc-devel
 BuildRequires:	libgdbm-devel
+BuildRequires:	libgfortran-static-devel
 BuildRequires:	liblapack-devel
 BuildRequires:	libxml2-devel
 BuildRequires:	mpfr-devel
