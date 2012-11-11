@@ -1,0 +1,42 @@
+diff -p -up Macaulay2-1.4-r12617/configure.ac.orig Macaulay2-1.4-r12617/configure.ac
+--- Macaulay2-1.4-r12617/configure.ac.orig	2010-11-10 20:58:01.990707751 -0200
++++ Macaulay2-1.4-r12617/configure.ac	2010-11-10 20:59:05.420708202 -0200
+@@ -792,7 +792,7 @@ AC_SUBST(BUILTLIBS,)
+ #	it asks questions
+ #    normaliz needs mpir providing libgmp and libgmpxx, but we provide that, anyway
+ AC_SUBST(PROGLIST, "4ti2 normaliz nauty lrslib")
+-AC_SUBST(LIBLIST, "gc    gdbm    mpir    mpfr    pari    readline    ntl    factory        libfac         lapack    frobby    scscp	glpk    cddlib ")
++AC_SUBST(LIBLIST, "gc    gdbm    gmp    mpfr    pari    readline    ntl    factory        libfac         lapack    frobby    scscp	glpk    cddlib ")
+ dnl I think we don't use this:
+ dnl AC_SUBST(LIBFILES,"libgc libgdbm libmpir libmpfr libpari libreadline libntl libcf libcfmem libfac libblas liblapack libfrobby libscscp  libglpk ")
+ for i in $LIBLIST
+@@ -898,16 +898,8 @@ dnl then BUILTLIBS="-lgmpxx -lgmp $BUILT
+ dnl else LIBS="-lgmpxx $LIBS"
+ dnl fi
+ 
+-if test $BUILD_mpir = no
+-then AC_LANG(C)
+-     AC_SEARCH_LIBS(__mpir_version,mpir,,BUILD_mpir=yes)
+-     AC_CHECK_HEADER(mpir.h,,BUILD_mpir=yes)
+-fi
+ dnl frobby uses mpirxx
+-if test $BUILD_mpir = yes
+-then BUILTLIBS="-lmpirxx -lmpir $BUILTLIBS"
+-else LIBS="-lmpirxx $LIBS"
+-fi
++LIBS="-lgmp -lgmpxx $LIBS"
+ 
+ if test "$PARI" = yes
+ then if test $BUILD_pari = no
+@@ -972,11 +964,6 @@ AC_SUBST(ULIMIT_S,yes)
+ ( ulimit -v 2000 2>/dev/null) || ULIMIT_V=no
+ ( ulimit -s 2000 2>/dev/null) || ULIMIT_S=no
+ 
+-AC_SUBST(MPIR_CONFIG_OPTIONS,)
+-AC_ARG_WITH(mpir_config_options,
+-	AS_HELP_STRING(--with-mpir-config-options=...,specify additional options for the configure script used with mpir),
+-	MPIR_CONFIG_OPTIONS=$withval)
+-
+ if test $BUILD_mpir = yes
+ then BUILD_mpfr=yes
+ elif test $BUILD_mpfr = no

@@ -1,0 +1,18 @@
+diff -p -up Macaulay2-1.4-r12617/Macaulay2/d/pari-c.c.orig Macaulay2-1.4-r12617/Macaulay2/d/pari-c.c
+--- Macaulay2-1.4-r12617/Macaulay2/d/pari-c.c.orig	2010-11-11 17:56:35.021708001 -0200
++++ Macaulay2-1.4-r12617/Macaulay2/d/pari-c.c	2010-11-11 18:22:28.392708603 -0200
+@@ -153,8 +153,14 @@ bool pari_ispseudoprime(mpz_t x, long fl
+ 
+ */
+ 
++#if PARI_VERSION_CODE >= 132099
++#  define outbeaut(x)		output(x)
++#endif
+ #define pari_examine(x) do { fputs(" " #x ": ", stdout); voir(x,-1); } while (0)
+ #define pari_display(x) do { fputs(" " #x ": ", stdout); outbeaut(x); } while (0)
++#ifndef max
++#  define max(a, b)	((a) >= (b) ? (a) : (b))
++#endif
+ #define abs(x) ((x)<0?-(x):(x))
+ 
+ static void gmp_examine0(mpz_t z) {

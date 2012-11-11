@@ -1,0 +1,12 @@
+diff -p -up Macaulay2-1.4-r12617/Macaulay2/packages/LLLBases.m2.orig Macaulay2-1.4-r12617/Macaulay2/packages/LLLBases.m2
+--- Macaulay2-1.4-r12617/Macaulay2/packages/LLLBases.m2.orig	2010-11-10 20:46:01.206708002 -0200
++++ Macaulay2-1.4-r12617/Macaulay2/packages/LLLBases.m2	2010-11-10 20:46:41.835708001 -0200
+@@ -1016,7 +1016,7 @@ For some highly structured matrices, thi
+ much worse than some of the floating point versions, and can
+ under certain circumstances even be better.",
+ EXAMPLE {
+-	  "m1 = map(ZZ^50, ZZ^50, (j,i) -> (i+1)^8 * (j+1)^4 + i + j + 2);",
++	  "m1 = map(ZZ^20, ZZ^20, (j,i) -> (i+1)^8 * (j+1)^4 + i + j + 2);",
+ 	  "m = syz m1;",
+ 	  "time LLL m;",
+ 	  "time LLL(m, Strategy=>CohenEngine);",
