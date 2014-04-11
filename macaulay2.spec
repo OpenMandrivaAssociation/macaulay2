@@ -74,7 +74,7 @@ BuildRequires: lapack-devel
 BuildRequires: mpfr-devel gmp-devel
 BuildRequires: normaliz
 BuildRequires: ntl-devel
-BuildRequires: pari-devel
+BuildRequires: libpari-devel
 BuildRequires: pkgconfig(bdw-gc) 
 BuildRequires: pkgconfig(libxml-2.0)
 BuildRequires: pkgconfig(ncurses)
