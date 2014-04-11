@@ -127,7 +127,7 @@ popd
 # helper binaries (4ti2, normaliz)
 mkdir -p BUILD/%{_target_platform}/StagingArea/%{M2_machine}/libexec/Macaulay2/%{M2_machine}
 pushd    BUILD/%{_target_platform}/StagingArea/%{M2_machine}/libexec/Macaulay2/%{M2_machine}
-for bin in %{_libdir}/4ti2/bin/* %{_bindir}/normaliz ; do
+for bin in `rpm -ql 4ti2 | grep /usr/bin` %{_bindir}/normaliz ; do
 if [ -x "${bin}" ]; then
   ln -s "${bin}"
 else
@@ -173,6 +173,8 @@ make Verbose=true -C BUILD/%{_target_platform}
 
 
 %install
+# We need /sbin:. in PATH to find install-info,etags
+PATH=/sbin:$(pwd):$PATH; export PATH
 mkdir -p %{buildroot}%{_libexecdir}/Macaulay2
 
 make install DESTDIR=%{buildroot} -C BUILD/%{_target_platform}
