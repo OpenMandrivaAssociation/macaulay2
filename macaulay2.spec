@@ -45,8 +45,6 @@ Patch8: Macaulay2-1.5-system_normaliz.patch
 Patch9: Macaulay2-1.5-use_gmp_instead_of_mpir.patch
 # fix build against factory-3.1.5
 Patch10: Macaulay2-1.5-factory_315.patch
-# fix fork bomb apparently only on OpenMandriva
-Patch11: Macaulay2-etags.patch
 
 BuildRequires: 4ti2
 BuildRequires: autoconf
@@ -116,7 +114,6 @@ mkdir -p BUILD/tarfiles/
 %patch8 -p1 -b .system_normaliz
 %patch9 -p1 -b  .use_gmp_instead_of_mpir
 %patch10 -p1 -b .factory_315
-%patch11 -p1
 
 # (re)generate configure
 [ -f configure -a -f include/config.h ] || make
