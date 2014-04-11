@@ -26,6 +26,7 @@ Source2: Normaliz.m2
 Source10: Macaulay2.png
 Source11: Macaulay2.desktop
 Source20: etags.sh
+Source100: %{name}.rpmlintrc
 
 Patch1: Macaulay2-1.4-xdg_open.patch
 # work harder to set ADDR_NO_RANDOMIZE, http://bugzilla.redhat.com/201739
