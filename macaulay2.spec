@@ -98,7 +98,7 @@ algebraic geometry and commutative algebra written by Daniel R. Grayson
 and Michael E. Stillman
 
 %prep
-%setup -q  -n %{name}-%{version}-%{svn}/M2
+%setup -q  -n Macaulay2-%{version}-%{svn}/M2
 
 # TEMPORARY: remove this when Macaulay ships the updated version
 cp -p %{SOURCE2} Macaulay2/packages
@@ -207,7 +207,7 @@ done
 # info dir
 rm -fv %{buildroot}%{_infodir}/dir
 # Empty files - indicating test passes
-rm -fv %{buildroot}%{_datadir}/%{name}/Macaulay2Doc/basictests/*.okay
+rm -fv %{buildroot}%{_datadir}/Macaulay2/Macaulay2Doc/basictests/*.okay
 
 
 %check
