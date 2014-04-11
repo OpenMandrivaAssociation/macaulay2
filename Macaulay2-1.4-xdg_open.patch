@@ -1,0 +1,21 @@
+diff -up Macaulay2-1.4-r12617/Macaulay2/m2/html.m2.xdg_open Macaulay2-1.4-r12617/Macaulay2/m2/html.m2
+--- Macaulay2-1.4-r12617/Macaulay2/m2/html.m2.xdg_open	2010-10-25 17:23:21.000000000 -0500
++++ Macaulay2-1.4-r12617/Macaulay2/m2/html.m2	2011-01-14 14:03:28.173589110 -0600
+@@ -1244,6 +1244,7 @@ chk := ret -> if ret != 0 then (
+      error "external command failed"
+      )
+ browserMethods := hashTable {
++     "xdg open" => url -> {"xdg-open", url},
+      "firefox" => url -> {"firefox", url},
+      "open" => url -> {"open", url},
+      "cygstart" => url -> {"cygstart", url},
+@@ -1259,7 +1260,8 @@ show URL := x -> (
+      else
+      if version#"issue" === "Cygwin" then browser = "cygstart";
+      if browser === "" then (
+-	  if runnable "firefox" then browser = "firefox"
++	  if runnable "xdg-open" then browser = "xdg-open"
++	  else if runnable "firefox" then browser = "firefox"
+ 	  else if runnable "netscape" then browser = "netscape"
+ 	  else error "no browser found, and none specified in $WWWBROWSER"
+ 	  );

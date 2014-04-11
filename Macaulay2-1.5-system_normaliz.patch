@@ -1,0 +1,12 @@
+diff -up M2/Macaulay2/packages/Normaliz.m2.system_normaliz M2/Macaulay2/packages/Normaliz.m2
+--- M2/Macaulay2/packages/Normaliz.m2.system_normaliz	2011-05-18 12:27:59.000000000 -0500
++++ M2/Macaulay2/packages/Normaliz.m2	2013-05-21 12:51:12.772887039 -0500
+@@ -166,7 +166,7 @@ getNmzExec=()->
+         nmzExec="normaliz";
+     );
+ --    return nmzExec;
+-    return prefixDirectory | currentLayout#"programs" | nmzExec;
++    return "/usr/bin/" | nmzExec;
+ );
+ 
+ 

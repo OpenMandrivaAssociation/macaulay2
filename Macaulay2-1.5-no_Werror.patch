@@ -1,0 +1,23 @@
+diff -up M2/Macaulay2/d/Makefile.in.no_Werror M2/Macaulay2/d/Makefile.in
+--- M2/Macaulay2/d/Makefile.in.no_Werror	2011-03-30 14:31:53.000000000 -0500
++++ M2/Macaulay2/d/Makefile.in	2013-05-21 12:59:27.584737346 -0500
+@@ -142,7 +142,7 @@ M2INCLUDES += -I@srcdir@/../regex
+ 
+ # it's important that *our* directories get searched first:
+ CPPFLAGS := $(M2INCLUDES) $(CPPFLAGS) $(M2_CPPFLAGS)
+-CFLAGS += $(M2_CFLAGS) -Werror
++CFLAGS += $(M2_CFLAGS)
+ ifeq "@__INTEL_COMPILER@" "no"
+ CFLAGS += -Wno-unused-label
+ endif
+@@ -156,8 +156,8 @@ endif
+ # CXXFLAGS += -std=c++98
+ # CXXFLAGS += -pedantic-errors
+ 
+-CFLAGS   += -Wreturn-type -Werror
+-CXXFLAGS += -Wreturn-type -Werror
++CFLAGS   += -Wreturn-type
++CXXFLAGS += -Wreturn-type
+ 
+ python-c.o : | python-exports.h.tmp
+ M2lib.o scclib.o : | interp-exports.h.tmp

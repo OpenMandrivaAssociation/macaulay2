@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Macaulay2
+Exec=M2
+Icon=Macaulay2
+SwallowTitle=Macaulay2
+Terminal=true
+Type=Application
+Categories=ConsoleOnly;Education;Math;
+Encoding=UTF-8

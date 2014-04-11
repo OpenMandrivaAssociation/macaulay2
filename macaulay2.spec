@@ -1,140 +1,233 @@
-Name:		macaulay2
-Version:	1.4
-Release:	%mkrel 2
-Group:		Sciences/Mathematics
-License:	GPL
-Summary:	A software system for research in algebraic geometry 
-Source:		http://www.math.uiuc.edu/Macaulay2/Downloads/SourceCode/Macaulay2-1.4-r12617-src.tar.bz2
-URL:		http://www.math.uiuc.edu/Macaulay2
-Source1:	http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/Factory/factory-3-1-1.tar.gz
-Source2:	http://www.mathematik.uni-kl.de/ftp/pub/Math/Singular/Libfac/libfac-3-1-1.tar.gz
-Source3:	http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/1.4/frobby_v0.8.2.tar.gz
-Source4:	http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/1.4/4ti2-1.3.2.tar.gz
-Source5:	http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/1.4/normaliz2.5Source.zip
-Source6:	http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/1.4/nauty24r2.tar.gz
-Source7:	http://www.math.uiuc.edu/Macaulay2/Downloads/OtherSourceCode/1.4/lrslib-042c.tar.gz
-BuildRoot:	%{_tmppath}/%{name}-%{version}-%{release}-buildroot
+%define snap 20130401
+%define svn r15955
 
+%global emacs_sitelisp  %{_datadir}/emacs/site-lisp/
+%global xemacs_sitelisp %{_datadir}/xemacs/site-packages/lisp/
+%global ISSUE OpenMandriva
+%global M2_machine %{_target_cpu}-Linux-%{ISSUE}
+
+%global INFO_FILES AdjointIdeal BGG BIBasis BeginningMacaulay2 Benchmark Binomials BoijSoederberg BooleanGB Browse Bruns ChainComplexExtras CharacteristicClasses Classic ConvexInterface ConwayPolynomials Cyclotomic DGAlgebras Depth Dmodules EdgeIdeals Elimination FirstPackage FormalGroupLaws FourTiTwo FourierMotzkin GenericInitialIdeal GraphicalModels Graphics Graphs HodgeIntegrals HyperplaneArrangements IntegralClosure InvolutiveBases Kronecker KustinMiller LLLBases LexIdeals LocalRings Macaulay2Doc MapleInterface Markov ModuleDeformations MonomialAlgebras MonomialMultiplierIdeals NAGtypes NoetherNormalization NormalToricVarieties Normaliz NumericalAlgebraicGeometry OpenMath PHCpack PackageTemplate Parametrization Parsing PieriMaps Points Polyhedra Polymake Posets PrimaryDecomposition QthPower RandomCanonicalCurves RandomCurves RandomGenus14Curves RandomObjects RandomPlaneCurves RandomSpaceCurves RationalPoints ReesAlgebra Regularity SCSCP SRdeformations Schubert2 SchurFunctors SchurRings Serialization SimpleDoc SimplicialComplexes SimplicialDecomposability StatePolytope Style SymmetricPolynomials TangentCone TensorComplexes Text ToricVectorBundles Units VersalDeformations WeylGroups XML gfanInterface
+ 
+Summary: System for algebraic geometry and commutative algebra
+Name:    Macaulay2
+Version: 1.5
+Release: 1%{?dist}
+
+License: GPLv2 or GPLv3
+
+URL:     http://www.math.uiuc.edu/Macaulay2/
+# the SVN revision is being used as a unique ID
+Source0: http://www.math.uiuc.edu/Macaulay2/Downloads/SourceCode/Macaulay2-%{version}-%{svn}-src.tar.bz2
+#Source0: Macaulay2-1.5-%{svn}.tar.xz
+Source1: Macaulay2-svn_checkout.sh
+# TEMPORARY: remove this when Macaulay ships the updated version
+Source2: Normaliz.m2
+
+Source10: Macaulay2.png
+Source11: Macaulay2.desktop
+Source20: etags.sh
+
+Patch1: Macaulay2-1.4-xdg_open.patch
+# work harder to set ADDR_NO_RANDOMIZE, http://bugzilla.redhat.com/201739
+Patch2: Macaulay2-1.5-ADDR_NO_RANDOMIZE.patch
+# nauty has bad licensing
+Patch3:  Macaulay2-1.5-no_nauty.patch
+# drop 'html-check-links' 'tests' from default make target
+# the former is broken since we omit nauty (see above).
+Patch4: Macaulay2-1.5-default_make_targets.patch
+# disable check for gftables
+Patch5: Macaulay2-1.5-no_gftables.patch
+# don't use -Werror 
+Patch6: Macaulay2-1.5-no_Werror.patch
+# use fedora/system copy of normaliz
+Patch8: Macaulay2-1.5-system_normaliz.patch
+# link to gmp, not mpir to avoid possible issues with gmp'ed pari
+Patch9: Macaulay2-1.5-use_gmp_instead_of_mpir.patch
+# fix build against factory-3.1.5
+Patch10: Macaulay2-1.5-factory_315.patch
+
+BuildRequires: 4ti2
+BuildRequires: autoconf
+BuildRequires: bison
+BuildRequires: blas-devel
+BuildRequires: boost-devel
+BuildRequires: cddlib-devel
+BuildRequires: desktop-file-utils
+BuildRequires: doxygen
 # etags
-BuildRequires:	bison flex
-BuildRequires:	cddlib-devel
-BuildRequires:	emacs-common
-BuildRequires:	gcc-gfortran
-BuildRequires:	gfan
-BuildRequires:	glpk-devel
-BuildRequires:	gmp-devel
-BuildRequires:	gmpxx-devel
-BuildRequires:	help2man
-BuildRequires:	info-install
-BuildRequires:	libatlas-devel
-BuildRequires:	libatomic_ops-devel
-BuildRequires:	libgc-devel
-BuildRequires:	libgdbm-devel
-BuildRequires:	libgfortran-static-devel
-BuildRequires:	liblapack-devel
-BuildRequires:	libxml2-devel
-BuildRequires:	mpfr-devel
-BuildRequires:	ncurses-devel
-BuildRequires:	ntl-devel
-BuildRequires:	libpari-devel
-BuildRequires:	readline-devel
-BuildRequires:	singular-devel
-BuildRequires:	texinfo
+BuildRequires: emacs-common
+BuildRequires: flex
+BuildRequires: flint-devel
+BuildRequires: gawk
+BuildRequires: gcc-gfortran
+BuildRequires: gmpxx-devel
+BuildRequires: gdbm-devel
+BuildRequires: gfan
+BuildRequires: glpk-devel
+BuildRequires: info
+BuildRequires: factory-static factory-devel
+BuildRequires: factory-gftables
+BuildRequires: libatlas-devel
+BuildRequires: libatomic_ops-devel
+BuildRequires: libfac-static libfac-devel
+BuildRequires: lapack-devel
+BuildRequires: mpfr-devel gmp-devel
+BuildRequires: normaliz
+BuildRequires: ntl-devel
+BuildRequires: pari-devel
+BuildRequires: pkgconfig(bdw-gc) 
+BuildRequires: pkgconfig(libxml-2.0)
+BuildRequires: pkgconfig(ncurses)
+BuildRequires: readline-devel 
+BuildRequires: texinfo
+BuildRequires: time
 
-Requires:	cdd
-Requires:	gfan
-
-# uses smaller numbers for the test/example or x86_64 ntl will
-# cause a fatal error
-Patch0:		Macaulay2-1.4-ntl-5.5.2-x86_64.patch
-
-# search cddlib headers in mandriva install directory
-Patch1:		Macaulay2-1.4-cddlib.patch
-
-# use mandriva gfan package
-Patch2:		Macaulay2-1.4-gfan.patch
-
-# use gmp
-Patch3:		Macaulay2-1.4-mpir.patch
-
-# use system libgc
-Patch4:		Macaulay2-1.4-gc.patch
-
-Patch5:		Macaulay2-1.4-pari.patch
+Requires: 4ti2
+Requires: gfan
+Requires: factory-gftables
+Requires: normaliz
+# M2-help
+Requires: xdg-utils
 
 %description
-Macaulay 2 is a software system devoted to supporting research in algebraic
-geometry  and commutative algebra, whose creation has been funded by the
-National Science Foundation since 1992.
-Macaulay 2 includes core algorithms for computing Gröbner bases and graded
-or multi-graded free resolutions of modules over quotient rings of graded
-or multi-graded polynomial rings with a monomial ordering. The core
-algorithms are accessible through a versatile high level interpreted user
-language with a powerful debugger supporting the creation of new classes of
-mathematical objects and the installation of methods for computing
-specifically with them. Macaulay 2 can compute Betti numbers, Ext,
-cohomology of coherent sheaves on projective varieties, primary
-decomposition of ideals, integral closure of rings, and more. 
+Macaulay 2 is a new software system devoted to supporting research in
+algebraic geometry and commutative algebra written by Daniel R. Grayson
+and Michael E. Stillman
 
-%package	doc
-Summary:	Macaulay2 documentation
-Group:		Development/Other
+%package common
+Summary: Common files for %{name}
+Requires: Macaulay2 = %{version}-%{release}
+BuildArch: noarch
+%description common
+%{summary}.
 
-%description	doc
-Macaulay 2 is a software system devoted to supporting research in algebraic
-geometry  and commutative algebra, whose creation has been funded by the
-National Science Foundation since 1992.
-This package provides Macaulay 2 documentation.
 
 %prep
-%setup -q -n Macaulay2-%{version}-r12617
+%setup -q  -n %{name}-%{version}-%{svn}/M2
 
-%ifarch x86_64
-%patch0 -p1
-%endif
-%patch1 -p1
-%patch2 -p1
-%patch3 -p1
-%patch4 -p1
-%patch5 -p1
+# TEMPORARY: remove this when Macaulay ships the updated version
+cp -p %{SOURCE2} Macaulay2/packages
+
+install -p -m755 %{SOURCE20} ./etags
+
+mkdir -p BUILD/tarfiles/
+
+%patch1 -p1 -b .xdg_open
+%patch2 -p1 -b .ADDR_NO_RANDOMIZE
+%patch3 -p1 -b .no_nauty
+%patch4 -p1 -b .default_make_targets
+%patch5 -p1 -b .no_gftables
+%patch6 -p1 -b .no_Werror
+%patch8 -p1 -b .system_normaliz
+%patch9 -p1 -b  .use_gmp_instead_of_mpir
+%patch10 -p1 -b .factory_315
+
+# (re)generate configure
+[ -f configure -a -f include/config.h ] || make
+
+# factory-gftables symlink
+mkdir -p BUILD/%{_target_platform}/StagingArea/common/share/Macaulay2/Core
+pushd    BUILD/%{_target_platform}/StagingArea/common/share/Macaulay2/Core
+ln -s /usr/share/factory/gftables factory
+popd
+
+# helper binaries (4ti2, normaliz)
+mkdir -p BUILD/%{_target_platform}/StagingArea/%{M2_machine}/libexec/Macaulay2/%{M2_machine}
+pushd    BUILD/%{_target_platform}/StagingArea/%{M2_machine}/libexec/Macaulay2/%{M2_machine}
+for bin in %{_libdir}/4ti2/bin/* %{_bindir}/normaliz ; do
+if [ -x "${bin}" ]; then
+  ln -s "${bin}"
+else
+  echo "WARNING: target ${bin} not executable!"
+fi
+done
+popd
+
+# Increase timeouts for slower CPUs (e.g., ARM)
+sed -i.timeout 's/-t 350/-t 1000/' Macaulay2/m2/html.m2
+touch -r Macaulay2/m2/html.m2.timeout Macaulay2/m2/html.m2
+
 
 %build
-# need install-info in $PATH
-export PATH=/sbin:$PATH
-mkdir -p BUILD/tarfiles
-cp %{SOURCE1} %{SOURCE2} %{SOURCE3} %{SOURCE4} %{SOURCE5} %{SOURCE6} %{SOURCE7} BUILD/tarfiles
-perl -pi -e 's|(AC_SUBST\(MACHINE,").*("\))|$1%{_arch}$2|;' configure.ac
 
-autoreconf -ifs
-./configure --prefix=%{_prefix}		\
-	--libdir=\${prefix}/%{_lib}	\
-	--libexecdir=\${prefix}/%{_lib} \
-	--disable-download
+# We need /sbin:. in PATH to find install-info,etags
+PATH=/sbin:$(pwd):$PATH; export PATH
 
-# avoid build failure due to some read only files
-chmod -R u+w .
-make
+## configure macro currently broken, due to some odd prefix-checks.  probably fixable -- Rex
+mkdir -p BUILD/%{_target_platform}
+pushd BUILD/%{_target_platform}
+CPPFLAGS="-I%{_includedir}/factory" \
+CFLAGS="%{optflags}" \
+CXXFLAGS="%{optflags}" \
+LDFLAGS="$RPM_LD_FLAGS -Wl,--as-needed" \
+LIBS="-lflint" \
+../../configure \
+  --build=%{_build} \
+  --host=%{_host} \
+  --with-issue=%{ISSUE} \
+  --prefix=%{_prefix} \
+  --disable-dumpdata \
+  --enable-shared \
+  --disable-fc-lib-ldflags \
+  --disable-strip \
+  --disable-frobby \
+  --with-unbuilt-programs="cddplus gfan 4ti2 lrslib nauty normaliz" 
+popd
+
+# Not smp-safe
+make Verbose=true -C BUILD/%{_target_platform}
+# IgnoreExampleErrors=true
+
 
 %install
-# need install-info in $PATH
-export PATH=/sbin:$PATH
-%makeinstall_std
+mkdir -p %{buildroot}%{_libexecdir}/Macaulay2
 
-%clean
-rm -rf %{buildroot}
+make install DESTDIR=%{buildroot} -C BUILD/%{_target_platform}
+# IgnoreExampleErrors=true
+
+# app img
+install -p -m644 -D %{SOURCE10} \
+  %{buildroot}%{_datadir}/icons/hicolor/32x32/apps/Macaulay2.png
+
+desktop-file-install --vendor ="" \
+  --dir=%{buildroot}%{_datadir}/applications \
+  %{SOURCE11}
+
+# Make a new home for emacs files
+mkdir -p %{buildroot}%{_datadir}/Macaulay2/emacs
+mv %{buildroot}%{emacs_sitelisp}/M2*.el %{buildroot}%{_datadir}/Macaulay2/emacs/
+ 
+for dir in %{emacs_sitelisp} %{xemacs_sitelisp} ; do
+  install -d -m755 %{buildroot}$dir
+  pushd %{buildroot}%{_datadir}/Macaulay2/emacs
+  for file in M2*.el ; do
+    ln -s %{_datadir}/Macaulay2/emacs/$file %{buildroot}$dir
+    touch %{buildroot}$dir/`basename $file .el`.elc
+  done
+  popd
+done
+
+## unpackaged files
+# info dir
+rm -fv %{buildroot}%{_infodir}/dir
+# Empty files - indicating test passes
+rm -fv %{buildroot}%{_datadir}/%{name}/Macaulay2Doc/basictests/*.okay
+
+
+%check
+time make -k check -C BUILD/%{_target_platform} ||:
 
 %files
-%defattr(-,root,root)
 %{_bindir}/M2
-%dir %{_libdir}/Macaulay2
-%{_libdir}/Macaulay2/*
-%dir %{_datadir}/Macaulay2
-%{_datadir}/Macaulay2/*
-%{_mandir}/man1/M2.1*
-%{_datadir}/emacs/site-lisp/*
-
-%files		doc
-%defattr(-,root,root)
-%dir %{_docdir}/Macaulay2
-%{_docdir}/Macaulay2/*
-%{_infodir}/*
+%{_datadir}/applications/*Macaulay2.desktop
+%{_datadir}/icons/hicolor/*/*/*
+%{_infodir}/*.info*
+%dir %{_prefix}/lib/Macaulay2/
+%{_prefix}/lib/Macaulay2/%{M2_machine}
+%dir %{_libexecdir}/Macaulay2/
+%{_libexecdir}/Macaulay2/%{M2_machine}
+%{_mandir}/man1/*
+%ghost %{emacs_sitelisp}
+%ghost %{xemacs_sitelisp}
+%{_datadir}/Macaulay2/
+%{_docdir}/Macaulay2/

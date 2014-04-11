@@ -1,0 +1,12 @@
+diff -up Macaulay2-1.5/Macaulay2/Makefile.in.default_make_targets Macaulay2-1.5/Macaulay2/Makefile.in
+--- Macaulay2-1.5/Macaulay2/Makefile.in.default_make_targets	2011-03-30 12:58:36.000000000 -0500
++++ Macaulay2-1.5/Macaulay2/Makefile.in	2012-07-22 13:58:20.130928303 -0500
+@@ -11,7 +11,7 @@ SUBDIRS = compat util probe regex c
+ ifeq "@DUMPDATA@" "yes"
+ SUBDIRS += dumpdata
+ endif
+-SUBDIRS += e-includes d e system kernel bin packages/Macaulay2Doc/basictests m2 emacs man packages html-check-links tests
++SUBDIRS += e-includes d e system kernel bin packages/Macaulay2Doc/basictests m2 emacs man packages
+ SUBDIRS += book
+ SUBDIRS += packages/Macaulay2Doc/test
+ 

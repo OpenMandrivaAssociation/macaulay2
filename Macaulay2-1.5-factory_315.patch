@@ -1,0 +1,12 @@
+diff -up Macaulay2-1.5/Macaulay2/e/x-factor.cpp.factory_315 Macaulay2-1.5/Macaulay2/e/x-factor.cpp
+--- Macaulay2-1.5/Macaulay2/e/x-factor.cpp.factory_315	2012-08-07 08:36:50.484611363 -0500
++++ Macaulay2-1.5/Macaulay2/e/x-factor.cpp	2012-08-07 09:23:51.683341530 -0500
+@@ -133,7 +133,7 @@ static __mpz_struct toInteger(CanonicalF
+ //     mpz_init(x);
+ //     mpz_set(x,y);
+ //     return *x;
+-     static const unsigned int base = 1 << 16;
++     static const int base = 1 << 16;
+      intarray v;
+      int sign;
+      {

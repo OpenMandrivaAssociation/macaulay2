@@ -1,0 +1,24 @@
+diff -up M2/Macaulay2/d/M2lib.c.bz201739 M2/Macaulay2/d/M2lib.c
+--- M2/Macaulay2/d/M2lib.c.bz201739	2011-08-27 11:36:47.000000000 -0500
++++ M2/Macaulay2/d/M2lib.c	2013-05-21 09:45:37.113850573 -0500
+@@ -598,7 +598,19 @@ char **argv;
+ 	       personality(oldpersonality | ADDR_NO_RANDOMIZE);
+ 	       newpersonality = personality(-1);
+ 	       personality(oldpersonality | ADDR_NO_RANDOMIZE);	/* just in case the previous line sets the personality to -1, which can happen */
+-	       if ((newpersonality & ADDR_NO_RANDOMIZE) != 0) return execvp(argv[0],argv);
++	       if ((newpersonality & ADDR_NO_RANDOMIZE) != 0) {
++		       /* Sometimes the personality isn't inherited.
++			  Prevent endless loops by adding --no-personality to
++			  the command line */
++		       char **new_argv = malloc((argc+2) * sizeof(char *));
++		       if (!new_argv) fatal("out of memory");
++
++		       new_argv[0] = argv[0];
++		       new_argv[1] = "--no-personality";
++		       memcpy(&new_argv[2], &argv[1], sizeof(char *) * (argc));
++		       
++		       return execvp(new_argv[0],new_argv);
++	       }
+ 	  }
+ 	  else personality(oldpersonality);
+      }

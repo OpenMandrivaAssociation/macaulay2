@@ -1,0 +1,12 @@
+diff -up M2/configure.ac.no_gftables M2/configure.ac
+--- M2/configure.ac.no_gftables	2013-05-21 13:00:39.977983920 -0500
++++ M2/configure.ac	2013-05-21 13:00:39.982983868 -0500
+@@ -829,7 +829,7 @@ AC_SUBST(BUILTLIBS,)
+ #    Henry Duong is experimenting with mpack, a multi-precision version of blas+lapack based on mpfr
+ #    mpack depends on gmp (which mpir provides) mpfr mpc qd
+ #    flint is experimental, depends on mpir and mpfr
+-AC_SUBST(PROGLIST, "4ti2 gfan normaliz nauty cddplus lrslib gftables")
++AC_SUBST(PROGLIST, "4ti2 gfan normaliz nauty cddplus lrslib")
+ AC_SUBST(LIBLIST, "gc gdbm mpir mpfr pari readline ntl factory libfac lapack frobby glpk cddlib givaro fflas_ffpack linbox boost mpc qd mpack flint")
+ for i in $LIBLIST
+ do eval BUILD_$i=no
