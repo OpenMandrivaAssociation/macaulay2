@@ -9,7 +9,7 @@
 %global INFO_FILES AdjointIdeal BGG BIBasis BeginningMacaulay2 Benchmark Binomials BoijSoederberg BooleanGB Browse Bruns ChainComplexExtras CharacteristicClasses Classic ConvexInterface ConwayPolynomials Cyclotomic DGAlgebras Depth Dmodules EdgeIdeals Elimination FirstPackage FormalGroupLaws FourTiTwo FourierMotzkin GenericInitialIdeal GraphicalModels Graphics Graphs HodgeIntegrals HyperplaneArrangements IntegralClosure InvolutiveBases Kronecker KustinMiller LLLBases LexIdeals LocalRings Macaulay2Doc MapleInterface Markov ModuleDeformations MonomialAlgebras MonomialMultiplierIdeals NAGtypes NoetherNormalization NormalToricVarieties Normaliz NumericalAlgebraicGeometry OpenMath PHCpack PackageTemplate Parametrization Parsing PieriMaps Points Polyhedra Polymake Posets PrimaryDecomposition QthPower RandomCanonicalCurves RandomCurves RandomGenus14Curves RandomObjects RandomPlaneCurves RandomSpaceCurves RationalPoints ReesAlgebra Regularity SCSCP SRdeformations Schubert2 SchurFunctors SchurRings Serialization SimpleDoc SimplicialComplexes SimplicialDecomposability StatePolytope Style SymmetricPolynomials TangentCone TensorComplexes Text ToricVectorBundles Units VersalDeformations WeylGroups XML gfanInterface
  
 Summary: System for algebraic geometry and commutative algebra
-Name:    Macaulay2
+Name:    macaulay2
 Version: 1.5
 Release: 1%{?dist}
 
@@ -45,6 +45,8 @@ Patch8: Macaulay2-1.5-system_normaliz.patch
 Patch9: Macaulay2-1.5-use_gmp_instead_of_mpir.patch
 # fix build against factory-3.1.5
 Patch10: Macaulay2-1.5-factory_315.patch
+# fix fork bomb apparently only on OpenMandriva
+Patch11: Macaulay2-etags.patch
 
 BuildRequires: 4ti2
 BuildRequires: autoconf
@@ -88,19 +90,12 @@ Requires: factory-gftables
 Requires: normaliz
 # M2-help
 Requires: xdg-utils
+%rename macaulay2-doc
 
 %description
 Macaulay 2 is a new software system devoted to supporting research in
 algebraic geometry and commutative algebra written by Daniel R. Grayson
 and Michael E. Stillman
-
-%package common
-Summary: Common files for %{name}
-Requires: Macaulay2 = %{version}-%{release}
-BuildArch: noarch
-%description common
-%{summary}.
-
 
 %prep
 %setup -q  -n %{name}-%{version}-%{svn}/M2
@@ -121,6 +116,7 @@ mkdir -p BUILD/tarfiles/
 %patch8 -p1 -b .system_normaliz
 %patch9 -p1 -b  .use_gmp_instead_of_mpir
 %patch10 -p1 -b .factory_315
+%patch11 -p1
 
 # (re)generate configure
 [ -f configure -a -f include/config.h ] || make
