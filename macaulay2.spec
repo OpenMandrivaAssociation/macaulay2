@@ -15,7 +15,7 @@ Release: 1%{?dist}
 
 License: GPLv2 or GPLv3
 
-URL:     http://www.math.uiuc.edu/Macaulay2/
+URL:     https://www.math.uiuc.edu/Macaulay2/
 # the SVN revision is being used as a unique ID
 Source0: http://www.math.uiuc.edu/Macaulay2/Downloads/SourceCode/Macaulay2-%{version}-%{svn}-src.tar.bz2
 #Source0: Macaulay2-1.5-%{svn}.tar.xz
