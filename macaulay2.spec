@@ -47,6 +47,7 @@ Patch9: Macaulay2-1.5-use_gmp_instead_of_mpir.patch
 # fix build against factory-3.1.5
 Patch10: Macaulay2-1.5-factory_315.patch
 
+BuildRequires:	make
 BuildRequires: 4ti2
 BuildRequires: autoconf
 BuildRequires: bison
